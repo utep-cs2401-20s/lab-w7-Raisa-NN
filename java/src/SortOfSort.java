@@ -1,54 +1,58 @@
 public class SortOfSort {
-    public void sort(int array[])
-    { int count = 0;
-    int begin = 0;
-    int end = array.length;
-    int max;
-        // One by one move boundary of unsorted subarray
-    while (begin < end) {
+    public static void sortOfSort(int array[]) {//Static, so don't need to instantiate new object in tester
+        int i;
+        int index = 0;
+        int count = 0;
+        int begin = 0;
+        int end = array.length-1;
 
-        // Find the maximum element in unsorted array
-        max = findMax(array);
+        while (begin != end) {
+            int max = array[begin];
 
-        // Swap the found maximum element with the last element
-        int temp = max;
-        max = array[array.length - 1 - count];
-        array[array.length - 1 - count] = temp;
-        count++;
-        end--;
-    }
+            //Find maximum element
+            for (i = begin; i <= end; i++)
+                if (array[i] >= max) {
+                    max = array[i]; //biggest number
+                    index = i; //index of biggest number
+                }
 
-            //After sorting the last 2 elements correctly (put to end), the next largest numbers are swapped to the beginning instead
-            // Swap the found maximum element with the first element
-//            if (count == 3)
-//                temp = array[max];
-//                array[max] = array[i+i];
-//                array[i+i] = temp;
-//                count = 0;
+            if (count < 2) { //If count<2, add elements to tail of array
 
-    public int findMax(int[] array) {
-        int max = array[0];
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] > max) {
-                max = array[i];
+                // Swap the found maximum element with the last element
+                int temp = array[index];
+                array[index] = array[end];
+                array[end] = temp;
+                count++;
+                end = end - 1;//unsorted array decreases by 1 at the end
             }
-         return max;
+            else {
+                // Swap the found maximum element with the first element for next 2 iterations after completing 2 iterations
+                int temp = array[index];
+                array[index] = array[begin];
+                array[begin] = temp;
+                begin = begin + 1;//unsorted array decreases by 1 at the beginning
+                count++;
+            }
+
+            if (count == 4) { //After adding 2 elements to the head, reset counts to 0 so max element can be attached to tail of array
+                count = 0;
+            }
+
+        }//While loop to iterate entire process closes
     }
+
     // Prints the array
-    public void printArray(int array[])
-    {
-        for (int i=0; i<array.length; ++i)
-            System.out.print(array[i]+" ");
+    public static void printArray(int array[]) {
+        for (int i = 0; i < array.length; ++i)
+            System.out.print(array[i] + " ");
         System.out.println();
     }
 
     // Driver code to test above
-    public static void main(String args[])
-    {
-        SortOfSort ob = new SortOfSort();
-        int array[] = {2,7,1,3,0,9,6,5};
-        ob.sort(array);
+    public static void main(String[] args) {
+        int array[] = {2, 7, 1, 3, 0, 9, 6, 5};
+        sortOfSort(array);
         System.out.println("Sorted array");
-        ob.printArray(array);
+        printArray(array);
     }
 }
