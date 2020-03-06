@@ -40,19 +40,4 @@ public class SortOfSort {
 
         }//While loop to iterate entire process closes
     }
-
-    // Prints the array
-    public static void printArray(int array[]) {
-        for (int i = 0; i < array.length; ++i)
-            System.out.print(array[i] + " ");
-        System.out.println();
-    }
-
-    // Driver code to test above
-    public static void main(String[] args) {
-        int array[] = {2, 7, 1, 3, 0, 9, 6, 5};
-        sortOfSort(array);
-        System.out.println("Sorted array");
-        printArray(array);
-    }
 }
